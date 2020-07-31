@@ -103,8 +103,19 @@ plot <- plotDR(sce, dr = "DiffusionMap", color_by = "meta8", facet_by = "sample_
 plot$facet$params$ncol <- 3
 plot
 # UMAP color_by CD27 DNAM1
-plotDR(sce, dr = "UMAP", color_by = c("CD27", "DNAM1"), facet_by = "condition")
+plotDR(sce, dr = "UMAP", color_by = c("CD27"), facet_by = "condition")
 
-plotDR(sce, dr = "UMAP", color_by = "meta8", facet_by = "sample_id")
-plotAbundances(sce, k = "meta12", by = "cluster_id", group_by = "condition")
+plotDR(sce, dr = "UMAP", color_by = "meta12", facet_by = "condition") + scale_color_brewer(palette = "RdYlBu")
+plotDR(sce, dr = "UMAP", color_by = "meta12", facet_by = "condition")
+plotDR(sce, dr = "DiffusionMap", color_by = "meta12", facet_by = "condition")
+p <- plotDR(sce, dr = "DiffusionMap", color_by = "meta12", facet_by = "sample_id") 
+p$facet$params$ncol <- 8
+p
+p <- plotDR(sce, dr = "UMAP", color_by = "meta12", facet_by = "sample_id") 
+p$facet$params$ncol <- 8
+p
+plotAbundances(sce, k = "meta12", by = "cluster_id", group_by = "condition") 
+
+plotExprHeatmap(sce, features = type_markers(sce), k = "meta12", by = "cluster_id", 
+                scale = "never", perc = TRUE, bars = TRUE, hm_pal = rev(brewer.pal(11, "RdYlBu")))
 plotAbundances(sce, k = "meta12", by = "sample_id", group_by = "condition")
